@@ -22,8 +22,10 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences.Editor editor;
     private ArrayList<GameDate> tennisGames;
 
+    private Game gameClass = new Game();
+
     private Spinner spHome;
-    private String nmsHome[] = {"Bob", "Joe", "Zack", "Billy"};
+    private String nmsHome[] = {"Bob", "Jane", "John", "Rose"};//{gameClass.getTeamONEplayerONE(), gameClass.getTeamONEplayerTWO(), gameClass.getTeamTWOplayerONE(), gameClass.getTeamTWOplayerTWO()};
     ArrayAdapter<String> adptHome;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         myPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
         editor = myPreferences.edit();
         tennisGames = new ArrayList<GameDate>();
-//        logThisGame("today", true, "Bob", "Jane", "John", "Rose", false);
+        logThisGame("today", true, "Bob", "Jane", "John", "Rose", false);
 //        logThisGame("today", true, "Bob", "Jane", "John", "Rose", false);
 //        logThisGame("today", true, "aaa", "sss", "ddd", "fff", false);
 //        saveData();
@@ -47,24 +49,7 @@ public class MainActivity extends AppCompatActivity {
         spHome.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                switch(position){
-                    case 0:
-                        //call function to set display to player 1 data
-                        Toast.makeText(MainActivity.this, "Bob", Toast.LENGTH_SHORT).show();
-                        break;
-                    case 1:
-                        //call function to set display to player 2 data
-                        Toast.makeText(MainActivity.this, "Joe", Toast.LENGTH_SHORT).show();
-                        break;
-                    case 2:
-                        //call function to set display to player 3 data
-                        Toast.makeText(MainActivity.this, "Zack", Toast.LENGTH_SHORT).show();
-                        break;
-                    case 3:
-                        //call function to set display to player 4 data
-                        Toast.makeText(MainActivity.this, "Billy", Toast.LENGTH_SHORT).show();
-                        break;
-                }
+                Toast.makeText(MainActivity.this, nmsHome[position], Toast.LENGTH_SHORT).show();
             }
 
             @Override

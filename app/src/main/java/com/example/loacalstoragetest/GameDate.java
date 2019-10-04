@@ -44,7 +44,7 @@ public class GameDate {
     }
 
     public void setGameTeamTWOplayerTWOname(int index, String teamONEplayerTWO) {
-        tennisMatches.get(index).setTeamONEplayerONE(teamONEplayerTWO);
+        tennisMatches.get(index).setTeamONEplayerTWO(teamONEplayerTWO);
     }
 
     public void setGameTeamONEsets(int index, int amount) {

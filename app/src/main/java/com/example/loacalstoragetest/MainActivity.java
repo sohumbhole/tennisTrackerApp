@@ -6,6 +6,12 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.Toast;
+
 import com.google.gson.Gson;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,6 +22,9 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences.Editor editor;
     private ArrayList<GameDate> tennisGames;
 
+    private Spinner spHome;
+    private String nmsHome[] = {"Bob", "Joe", "Zack", "Billy"};
+    ArrayAdapter<String> adptHome;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +40,38 @@ public class MainActivity extends AppCompatActivity {
 //        for (int i = 0; i < tennisGames.size(); i++) {
 //            Log.d("name " + i, " " + tennisGames.get(0).getGameTeamONEplayerONEname(i));
 //        }
+        spHome = (Spinner) findViewById(R.id.spHome);
+        adptHome = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, nmsHome);
+        spHome.setAdapter(adptHome);
+
+        spHome.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                switch(position){
+                    case 0:
+                        //call function to set display to player 1 data
+                        Toast.makeText(MainActivity.this, "Bob", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 1:
+                        //call function to set display to player 2 data
+                        Toast.makeText(MainActivity.this, "Joe", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 2:
+                        //call function to set display to player 3 data
+                        Toast.makeText(MainActivity.this, "Zack", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 3:
+                        //call function to set display to player 4 data
+                        Toast.makeText(MainActivity.this, "Billy", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 
     private void logThisGame(String day, boolean isItSingles, String teamONEplayerONEname, String teamONEplayerTWOname, String teamTWOplayerONEname, String teamTWOplayerTWOname, boolean doesTeamONEserve) {

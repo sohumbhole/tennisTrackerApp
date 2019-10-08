@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -20,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences myPreferences;
     private SharedPreferences.Editor editor;
     private ArrayList<GameDate> tennisGames;
-
+    TextView txtHome, txtAway, txtHGame, txtHSet, txtASet, txtAGame;
     private Spinner spMatch;
     private String nmsHome[] = new String[2];//{gameClass.getTeamONEplayerONE(), gameClass.getTeamONEplayerTWO(), gameClass.getTeamTWOplayerONE(), gameClass.getTeamTWOplayerTWO()};
     ArrayAdapter<String> adptHome;
@@ -31,10 +32,16 @@ public class MainActivity extends AppCompatActivity {
         myPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
         editor = myPreferences.edit();
         tennisGames = new ArrayList<GameDate>();
+        txtHome = (TextView) findViewById(R.id.txtHome);
+        txtAway = (TextView) findViewById(R.id.txtAway);
+        txtHGame = (TextView) findViewById(R.id.txtHGame);
+        txtHSet = (TextView) findViewById(R.id.txtHSet);
+        txtASet = (TextView) findViewById(R.id.txtASet);
+        txtAGame = (TextView) findViewById(R.id.txtAGame);
         logThisGame("today", true, "Bob", "Jane", "John", "Rose", false);
 //        logThisGame("today", true, "Bob", "Jane", "John", "Rose", false);
 //        logThisGame("today", true, "aaa", "sss", "ddd", "fff", false);
-        saveData();
+//        saveData();
 //        retriveData();
 //        for (int i = 0; i < tennisGames.size(); i++) {
 //            Log.d("name " + i, " " + tennisGames.get(0).getGameTeamONEplayerONEname(i));
@@ -49,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 Toast.makeText(MainActivity.this, nmsHome[position], Toast.LENGTH_SHORT).show();
-
+                updateTxt(position);
                 //CALL a FUNCTION TO UPDATE ALL THE TEXTVIEWS
             }
 
@@ -109,7 +116,16 @@ public class MainActivity extends AppCompatActivity {
         }
         return -1;
     }
-    public void updateTxt(){
+    public void updateTxt(int index){
         //change each txt
+        if(index == 0){
+            txtHome.setText(tennisGames.get(0).getGameTeamONEplayerONEname(index));
+            txtAway.setText(tennisGames.get(0).getGameTeamTWOplayerONEname(index));
+        }
+        else{
+            txtHome.setText(tennisGames.get(0).getGameTeamONEplayerTWOname(1));
+            txtAway.setText(tennisGames.get(0).getGameTeamTWOplayerTWOname(1));
+        }
+
     }
 }

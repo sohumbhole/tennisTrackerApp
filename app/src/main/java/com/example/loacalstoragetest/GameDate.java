@@ -19,10 +19,6 @@ public class GameDate {
         tennisMatches.set(index, new Game(isItSingles, teamONEplayerONEname, teamONEplayerTWOname, teamTWOplayerONEname, teamTWOplayerTWOname, doesTeamONEserve, teamONEsets, teamTWOsets, teamONEscore, teamTWOscore));
     }
 
-    public void addGameSets(int index, int team) {
-        tennisMatches.get(index).addSet(team);
-    }
-
     public void addGameScore(int index, int team) {
         tennisMatches.get(index).addPoint(team);
     }

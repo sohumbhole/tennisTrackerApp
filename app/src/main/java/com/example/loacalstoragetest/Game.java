@@ -44,28 +44,25 @@ public class Game {
     public void addPoint(int team) {
         switch (team) {
             case 1:
-                teamONEscore = (teamONEscore + 1) < 4 ? (teamONEscore + 1) : 0; teamONEsets = teamONEscore == 0 ? (teamONEsets + 1) : teamONEsets; break;
-            default:
-                teamTWOscore = (teamTWOscore + 1) < 4 ? (teamTWOscore + 1) : 0; teamTWOsets = teamTWOscore == 0 ? (teamTWOsets + 1) : teamTWOsets; break;
-        }
-    }
-
-    public void addSet(int team) {
-        switch (team) {
-            case 1:
-                if (teamONEsets < 8) {
-                    teamONEsets++;
-                }
-                else {
-                    teamWon = 1;
+                teamONEscore++;
+                if (teamONEscore >= 6 && teamONEscore >= (teamTWOscore + 2)) {
+                    teamONEscore = 0;
+                    teamTWOscore = 0;
+                    teamONEsets ++;
+                    if (teamONEsets == 2) {
+                        teamWon = 1;
+                    }
                 }
                 break;
             default:
-                if (teamTWOsets < 8) {
-                    teamTWOsets++;
-                }
-                else {
-                    teamWon = 2;
+                teamTWOscore++;
+                if (teamTWOscore >= 6 && teamTWOscore >= (teamONEscore + 2)) {
+                    teamONEscore = 0;
+                    teamTWOscore = 0;
+                    teamONEsets ++;
+                    if (teamONEsets == 2) {
+                        teamWon = 1;
+                    }
                 }
                 break;
         }

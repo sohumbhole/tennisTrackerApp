@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -22,10 +21,8 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences.Editor editor;
     private ArrayList<GameDate> tennisGames;
 
-    private Game gameClass = new Game();
-
-    private Spinner spHome;
-    private String nmsHome[] = {"Bob", "Jane", "John", "Rose"};//{gameClass.getTeamONEplayerONE(), gameClass.getTeamONEplayerTWO(), gameClass.getTeamTWOplayerONE(), gameClass.getTeamTWOplayerTWO()};
+    private Spinner spMatch;
+    private String nmsHome[] = new String[2];//{gameClass.getTeamONEplayerONE(), gameClass.getTeamONEplayerTWO(), gameClass.getTeamTWOplayerONE(), gameClass.getTeamTWOplayerTWO()};
     ArrayAdapter<String> adptHome;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,19 +34,23 @@ public class MainActivity extends AppCompatActivity {
         logThisGame("today", true, "Bob", "Jane", "John", "Rose", false);
 //        logThisGame("today", true, "Bob", "Jane", "John", "Rose", false);
 //        logThisGame("today", true, "aaa", "sss", "ddd", "fff", false);
-//        saveData();
+        saveData();
 //        retriveData();
 //        for (int i = 0; i < tennisGames.size(); i++) {
 //            Log.d("name " + i, " " + tennisGames.get(0).getGameTeamONEplayerONEname(i));
 //        }
-        spHome = (Spinner) findViewById(R.id.spHome);
+        nmsHome[0] = "1st Singles";
+        nmsHome[1] = "2nd Singles";
+        spMatch = (Spinner) findViewById(R.id.spMatch);
         adptHome = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, nmsHome);
-        spHome.setAdapter(adptHome);
+        spMatch.setAdapter(adptHome);
 
-        spHome.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spMatch.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 Toast.makeText(MainActivity.this, nmsHome[position], Toast.LENGTH_SHORT).show();
+
+                //CALL a FUNCTION TO UPDATE ALL THE TEXTVIEWS
             }
 
             @Override
@@ -94,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void retriveData() {
         tennisGames = new ArrayList<GameDate>();
-        for (int i = 0; i < myPreferences.getInt("amountOfLoggedDates", -1); i++) {
+        for (int i = 0; i < (myPreferences.getInt("amountOfLoggedDates", -1))-1; i++) {
             tennisGames.add(new Gson().fromJson(myPreferences.getString(Integer.toString(i), "none"), GameDate.class));
         }
         //tennisGames.add(new Gson().fromJson(myPreferences.getString(Integer.toString(0), "none"), GameDate.class));
@@ -107,5 +108,8 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return -1;
+    }
+    public void updateTxt(){
+        //change each txt
     }
 }

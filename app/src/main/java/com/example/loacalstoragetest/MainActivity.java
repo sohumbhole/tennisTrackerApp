@@ -128,4 +128,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+    public void clickedGame(View view){
+
+    }
 }

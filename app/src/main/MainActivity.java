@@ -5,23 +5,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
     private SharedPreferences myPreferences;
     private SharedPreferences.Editor editor;
     private ArrayList<GameDate> tennisGames;
-    TextView txtHome, txtAway, txtHGame, txtHSet, txtASet, txtAGame;
+
     private Spinner spMatch;
     private String nmsHome[] = new String[2];//{gameClass.getTeamONEplayerONE(), gameClass.getTeamONEplayerTWO(), gameClass.getTeamTWOplayerONE(), gameClass.getTeamTWOplayerTWO()};
     ArrayAdapter<String> adptHome;
@@ -32,20 +33,20 @@ public class MainActivity extends AppCompatActivity {
         myPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
         editor = myPreferences.edit();
         tennisGames = new ArrayList<GameDate>();
-        txtHome = (TextView) findViewById(R.id.txtHome);
-        txtAway = (TextView) findViewById(R.id.txtAway);
-        txtHGame = (TextView) findViewById(R.id.txtHGame);
-        txtHSet = (TextView) findViewById(R.id.txtHSet);
-        txtASet = (TextView) findViewById(R.id.txtASet);
-        txtAGame = (TextView) findViewById(R.id.txtAGame);
+        //tennisGames = new ArrayList<GameDate>(Arrays.asList(new GameDate()));
+        Log.d("one", Integer.toString(tennisGames.size()));
         logThisGame("today", true, "Bob", "Jane", "John", "Rose", false);
-//        logThisGame("today", true, "Bob", "Jane", "John", "Rose", false);
+        Log.d("two", Integer.toString(tennisGames.size()));
+        logThisGame("today", true, "yaaa", "buuuuu", "John", "Rose", false);
+        Log.d("three", Integer.toString(tennisGames.size()));
+        //        logThisGame("today", true, "Bob", "Jane", "John", "Rose", false);
 //        logThisGame("today", true, "aaa", "sss", "ddd", "fff", false);
-//        saveData();
+        saveData();
 //        retriveData();
 //        for (int i = 0; i < tennisGames.size(); i++) {
 //            Log.d("name " + i, " " + tennisGames.get(0).getGameTeamONEplayerONEname(i));
 //        }
+        //Log.d("hiiii", tennisGames.get(0).getGame(1).getTeamONEplayerTWO());
         nmsHome[0] = "1st Singles";
         nmsHome[1] = "2nd Singles";
         spMatch = (Spinner) findViewById(R.id.spMatch);
@@ -56,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 Toast.makeText(MainActivity.this, nmsHome[position], Toast.LENGTH_SHORT).show();
-                updateTxt(position);
+
                 //CALL a FUNCTION TO UPDATE ALL THE TEXTVIEWS
             }
 
@@ -80,11 +81,12 @@ public class MainActivity extends AppCompatActivity {
             tennisGames.get(indexFound).newGame(isItSingles, teamONEplayerONEname, teamONEplayerTWOname, teamTWOplayerONEname, teamTWOplayerTWOname, doesTeamONEserve);
         }
         else {
+            Log.d("ONCE", "PLEASEEEEEEE");
             tennisGames.add(new GameDate(today));
             tennisGames.get((tennisGames.size() - 1)).newGame(isItSingles, teamONEplayerONEname, teamONEplayerTWOname, teamTWOplayerONEname, teamTWOplayerTWOname, doesTeamONEserve);
         }
 
-        tennisGames.add(new GameDate(new SimpleDateFormat("MM/dd/yyyy").format(new Date())));
+        //tennisGames.add(new GameDate(new SimpleDateFormat("MM/dd/yyyy").format(new Date())));
 
     }
 
@@ -96,6 +98,8 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < tennisGames.size(); i++) {
             editor.putString(Integer.toString(i), new Gson().toJson(tennisGames.get(i)));
         }
+//        Log.d("size", Integer.toString(tennisGames.size()));
+//        Log.d("size2", Integer.toString(tennisGames.get(0).tennisMatches.size()));
         editor.putInt("amountOfLoggedDates", tennisGames.size());
         editor.apply();
     }
@@ -116,17 +120,8 @@ public class MainActivity extends AppCompatActivity {
         }
         return -1;
     }
-    public void updateTxt(int index){
+    public void updateTxt(){
         //change each txt
-        if(index == 0){
-            txtHome.setText(tennisGames.get(0).getGameTeamONEplayerONEname(index));
-            txtAway.setText(tennisGames.get(0).getGameTeamTWOplayerONEname(index));
-        }
-        else{
-            txtHome.setText(tennisGames.get(0).getGameTeamONEplayerTWOname(1));
-            txtAway.setText(tennisGames.get(0).getGameTeamTWOplayerTWOname(1));
-        }
-
     }
     public void clickedGame(View view){
 

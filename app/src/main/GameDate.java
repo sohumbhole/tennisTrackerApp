@@ -3,7 +3,7 @@ package com.example.loacalstoragetest;
 import java.util.ArrayList;
 
 public class GameDate {
-    private ArrayList<Game> tennisMatches = new ArrayList<Game>();
+    public ArrayList<Game> tennisMatches = new ArrayList<Game>();
     String currentDate;
     public GameDate() {}
 

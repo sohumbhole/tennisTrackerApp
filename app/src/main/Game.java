@@ -48,7 +48,7 @@ public class Game {
                 if (teamONEscore >= 6 && teamONEscore >= (teamTWOscore + 2)) {
                     teamONEscore = 0;
                     teamTWOscore = 0;
-                    teamONEsets ++;
+                    teamONEsets++;
                     if (teamONEsets == 2) {
                         teamWon = 1;
                     }
